@@ -1,0 +1,72 @@
+<h3>VISA FORM</h3>
+<h6>*Please fill all the fields</h6>
+
+<form (ngSubmit)="visapayment()" class="form" [formGroup]="visaPaymentForm">
+  <div class="form-group">
+    <label>Card holder</label>
+    <input [ngClass]="{
+        'border-danger':cardHolder.invalid && cardNumber.touched,
+        'border-success':cardHolder.valid}" formControlName="cardHolder" type="text" class="form-control"
+      placeholder="Enter card holder name" name="cardHolder">
+
+    <div *ngIf="cardHolder.invalid && cardHolder.touched">
+      <span *ngIf="cardHolder.errors?.InvalidHolderName" class="text-danger">Holder Name must be of Alphabetical
+        characterss<br></span>
+      <span *ngIf="cardHolder.errors?.required" class="text-danger">Holder Name is required<br></span>
+      <span *ngIf="cardHolder.errors?.minlength" class="text-danger">Holder Name should be between 15 to 20
+        characters</span>
+      <span *ngIf="cardHolder.errors?.maxlength" class="text-danger">Holder Name should be between 15 to 20
+        characters</span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Card number</label>
+
+    <input [ngClass]="{
+        'border-danger':cardNumber.invalid && cardNumber.touched,
+        'border-success':cardNumber.valid}" formControlName="cardNumber" type="text" class="form-control"
+      placeholder="Enter card number" name="cardNumber">
+
+    <div *ngIf="cardNumber.invalid && cardNumber.touched">
+      <!-- <span *ngIf="cardNumber.errors.required" class="text-danger">Card number  is required<br></span> -->
+      <span *ngIf="cardNumber.errors?.invalidCardNumber == true" class="text-danger">Card number is invalid<br></span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Exp date</label>
+    <input [ngClass]="{
+        'border-danger':expDate.invalid && expDate.touched,
+        'border-success':expDate.valid}" formControlName="expDate" type="text" class="form-control" placeholder="MM/YY"
+      name="expDate">
+
+    <div *ngIf="expDate.invalid && expDate.touched">
+      <!-- <span *ngIf="expDate.errors.required" class="text-danger">Date format is required<br></span> -->
+      <span *ngIf="expDate.errors.expiryDate" class="text-danger">Date value is invalid<br></span>
+      <span *ngIf="expDate.errors.expiryDateFormat" class="text-danger">Date format is invalid<br></span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>CVC</label>
+    <input [ngClass]="{
+        'border-danger':cvc.invalid && cvc.touched,
+        'border-success':cvc.valid
+    }" formControlName="cvc" type="text" class="form-control" placeholder="Enter CVC number" name="cvc">
+
+    <div *ngIf="cvc.invalid && cvc.touched">
+      <span *ngIf="cvc.errors.InvalidCvcValue" class="text-danger">Only numbers are valid<br></span>
+      <span *ngIf="cvc.errors.minlength" class="text-danger">CVC is valid upto 3 numbers<br></span>
+      <span *ngIf="cvc.errors.maxlength" class="text-danger">CVC is valid upto 3 numbers</span>
+      <span *ngIf="cvc.errors.required" class="text-danger">CVC is required</span>
+    </div>
+  </div>
+
+  <button [disabled]="visaPaymentForm.invalid" (click))="paymentConfirmed()" class="btn btn-primary"
+    type="submit">Pay</button>
+</form>
+
+<div *ngIf="isPaymentConfirmed == true">
+  <app-payment-confirmed></app-payment-confirmed>
+</div>

@@ -1,0 +1,79 @@
+<ngx-loading [show]="loading" [config]="{}"></ngx-loading>
+
+<div class="container">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <span>USD 16.50</span>
+    </div>
+    <div class="panel-body">
+
+      <div *ngIf="activeModel == 'buttonsSec'">
+        <button class="btn btn-primary" (click)="updateModel(modelTypeSec.visaModel)">VISA</button>&nbsp;&nbsp;
+        <button class="btn btn-primary" (click)="updateModel(modelTypeSec.sepaForm)">SEPA</button>
+      </div>
+
+
+      <div *ngIf="activeModel == 'sepaForm'">
+        <app-sepa-payment-form (newItemEvent)="sepaPaymentFunc($event)"></app-sepa-payment-form>
+      </div>
+
+      <div *ngIf="activeModel == 'visaModel'">
+        <app-visa-payment-form (newItemVisa)="visaPaymentFunc($event)"></app-visa-payment-form>
+      </div>
+
+      <div *ngIf="activeModel == 'thankYouSec'">
+        <h2 class="text-center">Your Payment is Successfully Processed</h2>
+
+        <div *ngIf="activeList == 'sepaList'">
+          <h3>SEPA List</h3>
+          <table class="table table-striped table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>IBAN</th>
+                <th>BIC</th>
+                <th>HOLDER NAME</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of sepaUsers">
+                <td>{{ user.id }}</td>
+                <td>{{ user.iban }}</td>
+                <td>{{ user.bic }}</td>
+                <td>{{ user.holderName }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div *ngIf="activeList == 'visaList'">
+          <h3>VISA List</h3>
+          <table class="table table-striped table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>CARD HOLDER</th>
+                <th>CARD NUMBER</th>
+                <th>EXPIRY DATE</th>
+                <th>CVC</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of visaUsers">
+                <td>{{ user.id }}</td>
+                <td>{{ user.cardHolder }}</td>
+                <td>{{ user.cardNumber }}</td>
+                <td>{{ user.expiryDate }}</td>
+                <td>{{ user.cvc }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="col-lg-12 text-center">
+          <button class="btn btn-primary" (click)="backToMain()">Back to Main</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<h3>SEPA FORM</h3>
+<h6>*Please fill all the fields</h6>
+<form (ngSubmit)="sepapayment()" class="form" [formGroup]="sipaPaymentForm">
+  <!-- {{sipaPaymentForm.value |json}} -->
+  <div class="form-group">
+    <label>IBAN</label>
+    <input [ngClass]="{
+            'border-danger':iban.invalid && iban.touched,
+            'border-success':iban.valid
+        }" formControlName="iban" type="text" class="form-control" placeholder="" name="iban">
+    <div *ngIf="iban.invalid && iban.touched">
+      <span *ngIf="iban.errors.InvalidIban == true" class="text-danger">IBAN Number must be of Alphanumeric
+        characters<br></span>
+      <span *ngIf="iban.errors?.required" class="text-danger">IBAN Number is required<br></span>
+      <span *ngIf="iban.errors?.minlength" class="text-danger">IBAN Number should be between 15 to 32 characters</span>
+      <span *ngIf="iban.errors?.maxlength" class="text-danger">IBAN Number should be between 15 to 32 characters</span>
+    </div>
+    <!-- <span *ngIf="iban.errors?.minlength" class="text-danger">IBAN Number should be minimum 15 characters</span> -->
+  </div>
+  <div class="form-group">
+    <label>BIC</label>
+    <input [ngClass]="{
+      'border-danger':bic.invalid && bic.touched,
+      'border-success':bic.valid
+  }" formControlName="bic" type="text" class="form-control" placeholder="" name="bic">
+
+    <div *ngIf="bic.invalid && bic.touched">
+      <span *ngIf="bic.errors.InvalidBic == true" class="text-danger">BIC Number must be of Alphanumeric
+        characters<br></span>
+      <span *ngIf="bic.errors?.required" class="text-danger">BIC Number is required<br></span>
+      <span *ngIf="bic.errors?.minlength" class="text-danger">BIC Number should be minimum 8 characters</span>
+      <span *ngIf="bic.errors?.maxlength" class="text-danger">BIC Number should be minimum 8 characters</span>
+    </div>
+    <!-- <span *ngIf="isInequalPasswords" class="text-danger">Passwords don't match!</span> -->
+  </div>
+
+  <div class="form-group">
+    <label>Holder Name</label>
+    <input [ngClass]="{
+      'border-danger':holderName.invalid && holderName.touched,
+      'border-success':holderName.valid
+  }" formControlName="holderName" type="text" class="form-control" placeholder="" name="holderName">
+
+    <div *ngIf="holderName.invalid && holderName.touched">
+      <span *ngIf="holderName.errors.InvalidHolderName == true" class="text-danger">Holder Name must be of Alphabetical
+        characterss<br></span>
+      <span *ngIf="holderName.errors?.required" class="text-danger">Holder Name is required<br></span>
+      <span *ngIf="holderName.errors?.minlength" class="text-danger">Holder Name should be between 15 to 20
+        characters</span>
+      <span *ngIf="holderName.errors?.maxlength" class="text-danger">Holder Name should be between 15 to 20
+        characters</span>
+    </div>
+    <!-- <span *ngIf="isInequalPasswords" class="text-danger">Passwords don't match!</span> -->
+  </div>
+
+  <button [disabled]="sipaPaymentForm.invalid" class="btn btn-primary" type="submit">Pay</button>
+</form>
