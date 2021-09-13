@@ -102,7 +102,7 @@ export class SepaPaymentFormComponent implements OnInit {
   /*
     output function to send the values
   */
-  addNewItem(value: boolean, data: any) {
+  addNewItem(value: boolean, data) {
     let postData = {
       validForm: value,
       formData: data

@@ -6,7 +6,7 @@ import { FormControl, Validators, FormBuilder, AbstractControl } from '@angular/
   templateUrl: './visa-payment-form.component.html',
   styleUrls: ['./visa-payment-form.component.css']
 })
-export class VisaPaymentFormComponent implements OnInit {
+export class VisaPaymentFormComponent {
   expiryMonth: string;
   expiryYear: string;
   isPaymentConfirmed: boolean = false;
@@ -30,8 +30,6 @@ export class VisaPaymentFormComponent implements OnInit {
     return this.visaPaymentForm.get('cvc')
   }
 
-  ngOnInit(): void {
-  }
   visaPaymentForm = this.formBuilder.group({
     cardHolder: new FormControl('',
       [Validators.required,
@@ -125,19 +123,19 @@ export class VisaPaymentFormComponent implements OnInit {
   */
   expiryDate(control: AbstractControl) {
     if (control.value) {
-      var today = control.value.split("/");
-      var newDate = new Date();
-      var today_mm: any = newDate.getMonth() + 1; // extracts the month portion
-      var today_yy = newDate.getFullYear() % 100; // extracts the year portion and changes it from yyyy to yy format
+      let today = control.value.split("/");
+      let newDate = new Date();
+      let today_mm: any = newDate.getMonth() + 1; // extracts the month portion
+      let today_yy = newDate.getFullYear() % 100; // extracts the year portion and changes it from yyyy to yy format
 
       if (today_mm < 10) { // if today's month is less than 10
         today_mm = '0' + today_mm // prefix it with a '0' to make it 2 digits
       }
 
-      var mm = today[0]; // get the mm portion of the expiryDate (first two characters)
-      var yy = today[1]; // get the yy portion of the expiryDate (from index 3 to end)
-      var mmLength = new String(mm)
-      var yyLength = new String(yy)
+      let mm = today[0]; // get the mm portion of the expiryDate (first two characters)
+      let yy = today[1]; // get the yy portion of the expiryDate (from index 3 to end)
+      let mmLength = new String(mm)
+      let yyLength = new String(yy)
 
       if (mm < 10) { // if today's month is less than 10
         mm = '0' + mm // prefix it with a '0' to make it 2 digits
@@ -173,7 +171,7 @@ export class VisaPaymentFormComponent implements OnInit {
     this.isPaymentConfirmed = true
   }
 
-  addNewVisa(value: boolean, data: any) {
+  addNewVisa(value: boolean, data) {
     let postData = {
       validForm: value,
       formData: data

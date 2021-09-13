@@ -53,7 +53,7 @@ export class PaymentComponent implements OnInit {
   /*
     output function to recieve data from sepa form
   */
-  sepaPaymentFunc(val: any) {
+  sepaPaymentFunc(val) {
     if (val.validForm) {
       this.listModel(ListType.sepaList)
       this.updateModel(ModelType.thankYouSec)
@@ -87,7 +87,7 @@ export class PaymentComponent implements OnInit {
   /*
     output function to recieve data from visa form
   */
-  visaPaymentFunc(val: any) {
+  visaPaymentFunc(val) {
     if (val.validForm) {
       this.listModel(ListType.visaList)
       this.updateModel(ModelType.thankYouSec)
